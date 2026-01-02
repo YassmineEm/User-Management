@@ -33,11 +33,15 @@ The following diagram illustrates the exchanges between the frontend, backend, a
 
 ```mermaid
 flowchart LR
-    Frontend["**Frontend**<br/><small>React 18 • TypeScript • Vite</small>"] -->|"HTTP API"| Backend["**Backend API**<br/><small>Node.js • Express • TypeScript</small>"]
-    Backend -->|"Reads file"| DataFile["**Data Source**<br/><small>usernames.txt • 10M users</small>"]
+    Frontend["Frontend<br/>React 18 • TypeScript • Vite"]
+    Backend["Backend API<br/>Node.js • Express • TypeScript"]
+    DataFile["Data Source<br/>usernames.txt • 10M users"]
+    
+    Frontend -->|"HTTP API Request"| Backend
+    Backend -->|"Reads file"| DataFile
     Backend -->|"Returns paginated data"| Frontend
 
-    %% Styles
+    %% Styles avec couleurs
     classDef frontend fill:#4C8BF5,stroke:#1A56DB,stroke-width:2px,color:white
     classDef backend fill:#10B981,stroke:#047857,stroke-width:2px,color:white
     classDef datafile fill:#F59E0B,stroke:#D97706,stroke-width:2px,color:white
