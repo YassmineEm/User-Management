@@ -1,7 +1,3 @@
-/**
- * Types et interfaces pour l'application frontend
- */
-
 export interface UserResponse {
   letter: string;
   offset: number;
@@ -23,5 +19,5 @@ export interface LetterStat {
 }
 
 export interface UserCache {
-  [key: string]: string[]; // key: "A-0", "A-50", etc.
+  [key: string]: string[]; 
 }

@@ -1,17 +1,16 @@
 {
   "compilerOptions": {
-    /* Language and Environment */
     "target": "ES2020",
     "lib": ["ES2020"],
     "module": "Node16",
     
-    /* Modules */
+
     "moduleResolution": "node16",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     
-    /* Emit */
+
     "outDir": "./dist",
     "rootDir": "./src",
     "removeComments": true,
@@ -19,7 +18,7 @@
     "declaration": true,
     "declarationMap": true,
     
-    /* Type Checking */
+
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -33,7 +32,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     
-    /* Completeness */
+
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },

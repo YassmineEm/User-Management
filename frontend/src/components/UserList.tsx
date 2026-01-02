@@ -22,29 +22,28 @@ export const UserList: React.FC<UserListProps> = ({
 }) => {
   const listRef = useRef<List>(null);
 
-  // Réinitialiser le scroll quand la lettre change
   useEffect(() => {
     if (listRef.current) {
       listRef.current.scrollTo(0);
     }
   }, [currentLetter]);
 
-  // Hauteur de la fenêtre de visualisation
+
   const CONTAINER_HEIGHT = 800;
   const ITEM_HEIGHT = 80;
 
-  // Nombre total d'items
+
   const itemCount = hasMore ? users.length + 1 : users.length;
 
-  // Vérifie si un item est chargé
+
   const isItemLoaded = (index: number) => !hasMore || index < users.length;
 
-  // Si aucun utilisateur et pas de chargement initial
+
   if (users.length === 0 && !loading) {
     return <EmptyState letter={currentLetter} />;
   }
 
-  // Fonction de rendu d'un item de la liste (style carte)
+
   const Row = ({ index, style }: { index: number; style: React.CSSProperties }) => {
     if (!isItemLoaded(index)) {
       return (
@@ -100,7 +99,7 @@ export const UserList: React.FC<UserListProps> = ({
             e.currentTarget.style.boxShadow = 'none';
           }}
         >
-          {/* Avatar avec initiale */}
+
           <div style={{
             width: '44px',
             height: '44px',
@@ -117,7 +116,6 @@ export const UserList: React.FC<UserListProps> = ({
             {username.charAt(0).toUpperCase()}
           </div>
 
-          {/* Informations utilisateur */}
           <div style={{
             flex: 1,
             minWidth: 0
@@ -149,7 +147,7 @@ export const UserList: React.FC<UserListProps> = ({
     <div style={{
       width: '100%'
     }}>
-      {/* Liste virtualisée */}
+
       <InfiniteLoader
         isItemLoaded={isItemLoaded}
         itemCount={itemCount}
@@ -176,7 +174,7 @@ export const UserList: React.FC<UserListProps> = ({
         )}
       </InfiniteLoader>
 
-      {/* Indicateur de chargement en bas */}
+
       {loading && users.length > 0 && (
         <div style={{
           padding: '16px',
@@ -186,7 +184,7 @@ export const UserList: React.FC<UserListProps> = ({
         </div>
       )}
 
-      {/* Message de fin */}
+
       {!hasMore && users.length > 0 && (
         <div style={{
           padding: '20px',

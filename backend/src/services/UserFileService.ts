@@ -34,10 +34,6 @@ export class UserFileService {
   /**
    * Construit l'index du fichier au démarrage
    * Parcourt le fichier une seule fois et crée un mapping lettre → position
-   * 
-   * Complexité: O(n) où n = nombre total de lignes
-   * Mémoire: O(26) pour l'alphabet (constant)
-   * 
    * @returns Promise<void>
    */
   async buildIndex(): Promise<void> {
@@ -55,7 +51,7 @@ export class UserFileService {
 
       const rl = readline.createInterface({
         input: fileStream,
-        crlfDelay: Infinity // Gère les retours à la ligne Windows/Unix
+        crlfDelay: Infinity 
       });
 
       let lineNumber = 0;
@@ -66,7 +62,7 @@ export class UserFileService {
       rl.on('line', (line: string) => {
         const username = line.trim();
 
-        // Ignorer les lignes vides
+
         if (!username) {
           lineNumber++;
           return;
@@ -74,16 +70,15 @@ export class UserFileService {
 
         const firstLetter = username.charAt(0).toUpperCase();
 
-        // Vérifier que c'est une lettre valide
+
         if (!/[A-Z]/.test(firstLetter)) {
           console.warn(`Ligne ${lineNumber}: premier caractère invalide "${firstLetter}"`);
           lineNumber++;
           return;
         }
 
-        // Nouvelle lettre détectée
+
         if (firstLetter !== currentLetter) {
-          // Sauvegarder l'index de la lettre précédente
           if (currentLetter !== null) {
             this.letterIndex.set(currentLetter, {
               letter: currentLetter,
@@ -94,7 +89,6 @@ export class UserFileService {
             console.log(`✓ Lettre ${currentLetter}: ${letterCount.toLocaleString()} utilisateurs (ligne ${letterStartLine})`);
           }
 
-          // Initialiser la nouvelle lettre
           currentLetter = firstLetter;
           letterStartLine = lineNumber;
           letterCount = 1;
@@ -105,14 +99,12 @@ export class UserFileService {
         lineNumber++;
         this.totalUsers++;
 
-        // Afficher la progression tous les 1M de lignes
         if (lineNumber % 1000000 === 0) {
           console.log(`Progression: ${lineNumber.toLocaleString()} lignes indexées...`);
         }
       });
 
       rl.on('close', () => {
-        // Sauvegarder la dernière lettre
         if (currentLetter !== null) {
           this.letterIndex.set(currentLetter, {
             letter: currentLetter,
@@ -120,13 +112,13 @@ export class UserFileService {
             count: letterCount
           });
           
-          console.log(`✓ Lettre ${currentLetter}: ${letterCount.toLocaleString()} utilisateurs (ligne ${letterStartLine})`);
+          console.log(`Lettre ${currentLetter}: ${letterCount.toLocaleString()} utilisateurs (ligne ${letterStartLine})`);
         }
 
         this.isIndexed = true;
         const duration = Date.now() - startTime;
         
-        console.log('\n✅ Indexation terminée avec succès!');
+        console.log('\n Indexation terminée avec succès!');
         console.log(`Durée: ${(duration / 1000).toFixed(2)} secondes`);
         console.log(`Total utilisateurs: ${this.totalUsers.toLocaleString()}`);
         console.log(`Lettres indexées: ${this.letterIndex.size}`);
@@ -147,11 +139,7 @@ export class UserFileService {
   }
 
   /**
-   * Récupère les utilisateurs pour une lettre donnée avec pagination
-   * 
-   * Complexité: O(k) où k = limit (nombre d'utilisateurs demandés)
-   * La lecture s'arrête dès que les k utilisateurs sont trouvés
-   * 
+   * Récupère les utilisateurs pour une lettre donnée avec pagination 
    * @param letter - Lettre de l'alphabet (A-Z)
    * @param offset - Position de départ (0-indexed)
    * @param limit - Nombre maximum d'utilisateurs à retourner
@@ -162,7 +150,6 @@ export class UserFileService {
     offset: number = 0,
     limit: number = 50
   ): Promise<UsersResult> {
-    // Vérification de l'état
     if (!this.isIndexed) {
       throw new ServiceError(
         'Index non construit. Appelez buildIndex() d\'abord.',
@@ -171,7 +158,6 @@ export class UserFileService {
       );
     }
 
-    // Validation des paramètres
     if (!/^[A-Z]$/.test(letter)) {
       throw new ServiceError(
         'La lettre doit être comprise entre A et Z',
@@ -198,8 +184,6 @@ export class UserFileService {
 
     const letterUpper = letter.toUpperCase();
     const index = this.letterIndex.get(letterUpper);
-
-    // Lettre non trouvée dans l'index
     if (!index) {
       return {
         users: [],
@@ -208,7 +192,6 @@ export class UserFileService {
       };
     }
 
-    // Vérifier si l'offset dépasse le nombre total
     if (offset >= index.count) {
       return {
         users: [],
@@ -217,11 +200,9 @@ export class UserFileService {
       };
     }
 
-    // Calculer les lignes à lire
     const startLine = index.startLine + offset;
     const endLine = Math.min(startLine + limit, index.startLine + index.count);
 
-    // Lire les lignes du fichier
     const users = await this.readLines(startLine, endLine);
 
     return {
@@ -234,7 +215,7 @@ export class UserFileService {
   /**
    * Lit un intervalle de lignes spécifique du fichier
    * Utilise un stream pour éviter de charger tout le fichier en mémoire
-   * S'arrête dès que l'intervalle est lu (optimisation cruciale)
+   * S'arrête dès que l'intervalle est lu 
    * 
    * @param startLine - Ligne de début (inclusive)
    * @param endLine - Ligne de fin (exclusive)
@@ -255,7 +236,6 @@ export class UserFileService {
       let currentLine = 0;
 
       rl.on('line', (line: string) => {
-        // Collecter seulement les lignes dans l'intervalle demandé
         if (currentLine >= startLine && currentLine < endLine) {
           const username = line.trim();
           if (username) {
@@ -265,9 +245,6 @@ export class UserFileService {
 
         currentLine++;
 
-        // 🚀 OPTIMISATION CRITIQUE
-        // Arrêter la lecture dès qu'on a toutes les lignes nécessaires
-        // Évite de parcourir inutilement le reste du fichier
         if (currentLine >= endLine) {
           rl.close();
           fileStream.destroy();

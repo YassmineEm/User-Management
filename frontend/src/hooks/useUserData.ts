@@ -2,10 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { UserAPI } from '../services/api';
 import { UserCache, LetterStat } from '../types';
 
-/**
- * Hook personnalisé pour gérer les données des utilisateurs
- * Gère le chargement, la pagination, le cache et la navigation par lettre
- */
+
 export const useUserData = () => {
   const [currentLetter, setCurrentLetter] = useState<string>('A');
   const [users, setUsers] = useState<string[]>([]);
@@ -16,12 +13,9 @@ export const useUserData = () => {
   const [letterStats, setLetterStats] = useState<LetterStat[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  // Clé de cache basée sur lettre et offset
   const getCacheKey = (letter: string, offset: number) => `${letter}-${offset}`;
 
-  /**
-   * Charge les statistiques au montage du composant
-   */
+
   useEffect(() => {
     const loadStats = async () => {
       try {
@@ -35,9 +29,7 @@ export const useUserData = () => {
     loadStats();
   }, []);
 
-  /**
-   * Charge un batch d'utilisateurs pour la lettre courante
-   */
+
   const loadMoreUsers = useCallback(async () => {
     if (loading || !hasMore) return;
 
@@ -47,23 +39,22 @@ export const useUserData = () => {
     const cacheKey = getCacheKey(currentLetter, offset);
 
     try {
-      // Vérifier le cache d'abord
       if (cache[cacheKey]) {
         setUsers(prev => [...prev, ...cache[cacheKey]]);
         setLoading(false);
         return;
       }
 
-      // Appel API si pas en cache
+
       const response = await UserAPI.getUsers(currentLetter, offset, 50);
 
-      // Mise à jour du cache
+
       setCache(prev => ({
         ...prev,
         [cacheKey]: response.users
       }));
 
-      // Mise à jour de l'état
+
       setUsers(prev => [...prev, ...response.users]);
       setHasMore(response.hasMore);
       setTotalForLetter(response.total);
@@ -76,9 +67,7 @@ export const useUserData = () => {
     }
   }, [currentLetter, users.length, hasMore, loading, cache]);
 
-  /**
-   * Change la lettre active et réinitialise la liste
-   */
+
   const changeLetter = useCallback(async (letter: string) => {
     setCurrentLetter(letter);
     setUsers([]);
@@ -90,14 +79,14 @@ export const useUserData = () => {
     const cacheKey = getCacheKey(letter, 0);
 
     try {
-      // Vérifier le cache
+
       if (cache[cacheKey]) {
         setUsers(cache[cacheKey]);
         setLoading(false);
         return;
       }
 
-      // Charger depuis l'API
+
       const response = await UserAPI.getUsers(letter, 0, 50);
 
       setCache(prev => ({

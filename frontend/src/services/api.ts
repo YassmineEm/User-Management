@@ -2,13 +2,8 @@ import { UserResponse, StatsResponse } from '../types';
 
 const API_BASE_URL = (import.meta as any).env.VITE_API_URL || 'http://localhost:3001/api';
 
-/**
- * Service API pour communiquer avec le backend
- */
 export class UserAPI {
-  /**
-   * Récupère les utilisateurs pour une lettre donnée avec pagination
-   */
+
   static async getUsers(
     letter: string,
     offset: number = 0,
@@ -26,9 +21,7 @@ export class UserAPI {
     return response.json();
   }
 
-  /**
-   * Récupère les statistiques globales (nombre d'utilisateurs par lettre)
-   */
+
   static async getStats(): Promise<StatsResponse> {
     const url = `${API_BASE_URL}/stats`;
     

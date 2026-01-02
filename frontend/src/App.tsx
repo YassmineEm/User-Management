@@ -18,7 +18,7 @@ const App: React.FC = () => {
     changeLetter
   } = useUserData();
 
-  // Calculer les stats globales
+
   const totalUsers = letterStats.reduce((sum, stat) => sum + stat.count, 0);
 
   return (
@@ -45,7 +45,7 @@ const App: React.FC = () => {
           justifyContent: 'space-between',
           gap: '24px'
         }}>
-          {/* Logo et titre */}
+
           <div style={{
             display: 'flex',
             alignItems: 'center',
@@ -85,7 +85,7 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      {/* Message d'erreur */}
+
       {error && (
         <div style={{
           maxWidth: '1400px',
@@ -109,7 +109,7 @@ const App: React.FC = () => {
         </div>
       )}
 
-      {/* Contenu principal avec menu latéral */}
+
       <div style={{
         maxWidth: '1400px',
         margin: '0 auto',
@@ -118,7 +118,7 @@ const App: React.FC = () => {
         gap: '24px',
         alignItems: 'flex-start'
       }}>
-        {/* Menu alphabétique latéral */}
+
         <aside style={{
           position: 'sticky',
           top: '100px',
@@ -137,7 +137,7 @@ const App: React.FC = () => {
           )}
         </aside>
 
-        {/* Liste des utilisateurs */}
+
         <main style={{
           flex: 1,
           minWidth: 0
