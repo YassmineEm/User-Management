@@ -66,7 +66,7 @@ The following steps allow you to install the User Directory project locally.
 1. Clone the repository.
    ```bash
    git clone https://github.com/YassmineEm/User-Management.git
-   cd user-directory
+   cd User-Management
    ```
 2. Install backend dependencies.
    ```bash

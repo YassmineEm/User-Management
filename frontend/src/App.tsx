@@ -100,7 +100,6 @@ const App: React.FC = () => {
             alignItems: 'center',
             gap: '12px'
           }}>
-            <span style={{ fontSize: '20px' }}>⚠️</span>
             <span style={{ color: '#991b1b', fontSize: '14px' }}>
               {error}
             </span>
