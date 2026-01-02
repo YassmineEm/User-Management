@@ -33,9 +33,18 @@ The following diagram illustrates the exchanges between the frontend, backend, a
 
 ```mermaid
 flowchart LR
-    Browser[Frontend React 18 TypeScript] -->|HTTP API| ApiServer[Backend Node Express TypeScript]
-    ApiServer -->|Reads file| DataFile[usernames.txt file]
-    ApiServer -->|Returns paginated data| Browser
+    Frontend["**Frontend**<br/><small>React 18 • TypeScript • Vite</small>"] -->|"HTTP API"| Backend["**Backend API**<br/><small>Node.js • Express </small>"]
+    Backend -->|"Reads file"| DataFile["usernames.txt file"]
+    Backend -->|"Returns paginated data"| Frontend
+
+    %% Alternative 1 - Palette moderne
+    classDef frontend fill:#4C8BF5,stroke:#1A56DB,stroke-width:2px,color:white
+    classDef backend fill:#10B981,stroke:#047857,stroke-width:2px,color:white
+    classDef datafile fill:#F59E0B,stroke:#D97706,stroke-width:2px,color:white
+    
+    class Frontend frontend
+    class Backend backend
+    class DataFile datafile
 ```
 
 ### Prerequisites
