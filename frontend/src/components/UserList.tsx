@@ -17,7 +17,6 @@ export const UserList: React.FC<UserListProps> = ({
   users,
   loading,
   hasMore,
-  totalForLetter,
   currentLetter,
   onLoadMore
 }) => {
@@ -160,7 +159,7 @@ export const UserList: React.FC<UserListProps> = ({
           <List
             ref={(list) => {
               ref(list);
-              listRef.current = list;
+              (listRef as React.MutableRefObject<List | null>).current = list;
             }}
             height={CONTAINER_HEIGHT}
             itemCount={itemCount}

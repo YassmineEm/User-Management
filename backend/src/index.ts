@@ -59,19 +59,16 @@ app.use((req: Request, res: Response, next: NextFunction) => {
  */
 async function startServer(): Promise<void> {
   try {
-    console.log('\n╔════════════════════════════════════════════════╗');
-    console.log('║   🚀 Démarrage du serveur backend             ║');
-    console.log('╚════════════════════════════════════════════════╝\n');
-
-    console.log(`📍 Environnement: ${NODE_ENV}`);
-    console.log(`🔌 Port: ${PORT}`);
+    console.log(`Démarrage du serveur backend `);
+    console.log(`Environnement: ${NODE_ENV}`);
+    console.log(`Port: ${PORT}`);
 
     // Déterminer le chemin du fichier de données
     const dataFilePath = path.isAbsolute(DATA_FILE)
       ? DATA_FILE
       : path.join(__dirname, '..', 'data', DATA_FILE);
 
-    console.log(`📂 Fichier de données: ${dataFilePath}\n`);
+    console.log(`Fichier de données: ${dataFilePath}\n`);
 
     // Initialisation du service avec indexation
     console.log('═══════════════════════════════════════════════');
@@ -141,7 +138,7 @@ async function startServer(): Promise<void> {
      * Gestionnaire d'erreurs global
      */
     app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-      console.error('❌ Erreur non gérée:', err);
+      console.error('Erreur non gérée:', err);
 
       res.status(500).json({
         error: 'Erreur interne du serveur',
@@ -152,13 +149,11 @@ async function startServer(): Promise<void> {
 
     // Démarrage du serveur
     const server = app.listen(PORT, () => {
-      console.log('\n╔════════════════════════════════════════════════╗');
-      console.log(`║   ✅ Serveur démarré avec succès!             ║`);
-      console.log('╚════════════════════════════════════════════════╝\n');
+      console.log(`SServeur démarré avec succès!`);
       
-      console.log(`🌐 Serveur disponible sur: http://localhost:${PORT}`);
-      console.log(`👥 Total utilisateurs: ${userService.getTotalUsers().toLocaleString()}`);
-      console.log(`🔤 Lettres disponibles: ${userService.getAvailableLetters().join(', ')}`);
+      console.log(`Serveur disponible sur: http://localhost:${PORT}`);
+      console.log(`Total utilisateurs: ${userService.getTotalUsers().toLocaleString()}`);
+      console.log(`Lettres disponibles: ${userService.getAvailableLetters().join(', ')}`);
       
       console.log('\n📍 Endpoints disponibles:');
       console.log(`   ├─ GET  /health`);
@@ -181,13 +176,13 @@ async function startServer(): Promise<void> {
       console.log(`\n\n⚠️  Signal ${signal} reçu. Arrêt gracieux du serveur...`);
       
       server.close(() => {
-        console.log('✅ Serveur arrêté proprement.');
+        console.log('Serveur arrêté proprement.');
         process.exit(0);
       });
 
       // Forcer l'arrêt après 10 secondes
       setTimeout(() => {
-        console.error('❌ Arrêt forcé du serveur (timeout).');
+        console.error('Arrêt forcé du serveur (timeout).');
         process.exit(1);
       }, 10000);
     };

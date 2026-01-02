@@ -5,11 +5,7 @@ import { LetterIndex, UsersResult, LetterStat, ServiceError } from '../types';
 
 const stat = promisify(fs.stat);
 
-/**
- * Service de gestion du fichier d'utilisateurs
- * Implémente une stratégie d'indexation et de lecture optimisée
- * pour gérer des millions d'utilisateurs sans charger le fichier en mémoire
- */
+
 export class UserFileService {
   private filePath: string;
   private letterIndex: Map<string, LetterIndex> = new Map();
@@ -22,9 +18,7 @@ export class UserFileService {
     this.encoding = encoding;
   }
 
-  /**
-   * Vérifie si le fichier existe et est accessible
-   */
+
   private async checkFileExists(): Promise<void> {
     try {
       await stat(this.filePath);
@@ -49,8 +43,8 @@ export class UserFileService {
   async buildIndex(): Promise<void> {
     await this.checkFileExists();
 
-    console.log('🔍 Construction de l\'index du fichier...');
-    console.log(`📂 Fichier: ${this.filePath}`);
+    console.log('Construction de l\'index du fichier...');
+    console.log(`Fichier: ${this.filePath}`);
     
     const startTime = Date.now();
 
@@ -82,7 +76,7 @@ export class UserFileService {
 
         // Vérifier que c'est une lettre valide
         if (!/[A-Z]/.test(firstLetter)) {
-          console.warn(`⚠️  Ligne ${lineNumber}: premier caractère invalide "${firstLetter}"`);
+          console.warn(`Ligne ${lineNumber}: premier caractère invalide "${firstLetter}"`);
           lineNumber++;
           return;
         }
@@ -113,7 +107,7 @@ export class UserFileService {
 
         // Afficher la progression tous les 1M de lignes
         if (lineNumber % 1000000 === 0) {
-          console.log(`📊 Progression: ${lineNumber.toLocaleString()} lignes indexées...`);
+          console.log(`Progression: ${lineNumber.toLocaleString()} lignes indexées...`);
         }
       });
 
@@ -133,16 +127,16 @@ export class UserFileService {
         const duration = Date.now() - startTime;
         
         console.log('\n✅ Indexation terminée avec succès!');
-        console.log(`⏱️  Durée: ${(duration / 1000).toFixed(2)} secondes`);
-        console.log(`👥 Total utilisateurs: ${this.totalUsers.toLocaleString()}`);
-        console.log(`🔤 Lettres indexées: ${this.letterIndex.size}`);
+        console.log(`Durée: ${(duration / 1000).toFixed(2)} secondes`);
+        console.log(`Total utilisateurs: ${this.totalUsers.toLocaleString()}`);
+        console.log(`Lettres indexées: ${this.letterIndex.size}`);
         console.log('');
 
         resolve();
       });
 
       rl.on('error', (error) => {
-        console.error('❌ Erreur lors de l\'indexation:', error);
+        console.error('Erreur lors de l\'indexation:', error);
         reject(new ServiceError(
           'Erreur lors de la lecture du fichier',
           500,
