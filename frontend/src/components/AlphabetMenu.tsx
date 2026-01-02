@@ -15,7 +15,6 @@ export const AlphabetMenu: React.FC<AlphabetMenuProps> = ({
   loading = false
 }) => {
   const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-
   const statsMap = new Map(
     letterStats.map(stat => [stat.letter, stat.count])
   );

@@ -27,7 +27,6 @@ const App: React.FC = () => {
       background: '#f5f7fa',
       padding: '0'
     }}>
-      {/* Header simple et épuré */}
       <header style={{
         background: 'white',
         borderBottom: '1px solid #e5e7eb',
@@ -71,7 +70,7 @@ const App: React.FC = () => {
                 margin: 0,
                 lineHeight: 1.2
               }}>
-                User Administration
+                User Directory
               </h1>
               <p style={{
                 fontSize: '13px',
