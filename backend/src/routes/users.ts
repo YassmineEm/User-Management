@@ -8,6 +8,7 @@ const router: Router = express.Router();
 let userService: UserFileService;
 
 /**
+ * Initialise les routes avec une instance du service
  * @param service - Instance de UserFileService
  * @returns Router Express
  */
@@ -150,6 +151,7 @@ router.get('/letters', (req: Request, res: Response) => {
 });
 
 /**
+ * Gestionnaire d'erreurs centralisé
  * @param error - Erreur capturée
  * @param res - Objet Response Express
  */

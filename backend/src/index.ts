@@ -139,7 +139,7 @@ async function startServer(): Promise<void> {
 
 
     const gracefulShutdown = (signal: string) => {
-      console.log(`\n\n⚠️  Signal ${signal} reçu. Arrêt gracieux du serveur...`);
+      console.log(`\n\n  Signal ${signal} reçu. Arrêt gracieux du serveur...`);
       
       server.close(() => {
         console.log('Serveur arrêté proprement.');
