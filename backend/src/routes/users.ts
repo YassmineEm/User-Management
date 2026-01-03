@@ -8,7 +8,6 @@ const router: Router = express.Router();
 let userService: UserFileService;
 
 /**
- * Initialise les routes avec une instance du service
  * @param service - Instance de UserFileService
  * @returns Router Express
  */
@@ -75,7 +74,7 @@ router.get('/users', async (req: Request, res: Response) => {
       returned: result.users.length
     };
 
-    // Log pour le monitoring
+
     console.log(
       `[${new Date().toISOString()}] GET /users - ` +
       `Letter: ${letter}, Offset: ${offset}, Returned: ${result.users.length}, ` +
@@ -151,7 +150,6 @@ router.get('/letters', (req: Request, res: Response) => {
 });
 
 /**
- * Gestionnaire d'erreurs centralisé
  * @param error - Erreur capturée
  * @param res - Objet Response Express
  */

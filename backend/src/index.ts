@@ -56,13 +56,9 @@ async function startServer(): Promise<void> {
       : path.join(__dirname, '..', 'data', DATA_FILE);
 
     console.log(`Fichier de données: ${dataFilePath}\n`);
-
-    console.log('═══════════════════════════════════════════════');
     const userService = new UserFileService(dataFilePath);
-    
-
     await userService.buildIndex();
-    console.log('═══════════════════════════════════════════════\n');
+
 
 
     const userRoutes = initializeUserRoutes(userService);
@@ -95,7 +91,7 @@ async function startServer(): Promise<void> {
           letter: 'GET /api/letter/:letter',
           letters: 'GET /api/letters'
         },
-        documentation: 'https://github.com/your-repo/README.md'
+        documentation: 'https://github.com/YassmineEm/User-Management.git/README.md'
       });
     });
 

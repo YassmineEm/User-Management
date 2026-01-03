@@ -32,8 +32,6 @@ export class UserFileService {
   }
 
   /**
-   * Construit l'index du fichier au démarrage
-   * Parcourt le fichier une seule fois et crée un mapping lettre → position
    * @returns Promise<void>
    */
   async buildIndex(): Promise<void> {
@@ -276,9 +274,6 @@ export class UserFileService {
   }
 
   /**
-   * Retourne les statistiques globales (nombre d'utilisateurs par lettre)
-   * Utilisé pour générer le menu alphabétique côté frontend
-   * 
    * @returns LetterStat[]
    */
   getStats(): LetterStat[] {
@@ -299,7 +294,6 @@ export class UserFileService {
   }
 
   /**
-   * Retourne le nombre total d'utilisateurs
    * @returns number
    */
   getTotalUsers(): number {
@@ -307,7 +301,6 @@ export class UserFileService {
   }
 
   /**
-   * Vérifie si l'index a été construit
    * @returns boolean
    */
   isReady(): boolean {
@@ -315,7 +308,6 @@ export class UserFileService {
   }
 
   /**
-   * Retourne les informations d'index pour une lettre
    * @param letter - Lettre (A-Z)
    * @returns LetterIndex | undefined
    */
@@ -324,7 +316,6 @@ export class UserFileService {
   }
 
   /**
-   * Retourne toutes les lettres disponibles
    * @returns string[]
    */
   getAvailableLetters(): string[] {
