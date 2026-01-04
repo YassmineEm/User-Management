@@ -20,7 +20,11 @@ export const useUserData = () => {
     const loadStats = async () => {
       try {
         const stats = await UserAPI.getStats();
-        setLetterStats(stats.letterStats);
+        if (stats?.letterStats) {
+          setLetterStats(stats.letterStats);
+        } else {
+          setLetterStats([]);
+        }
       } catch (error) {
         console.error('Erreur chargement stats:', error);
         setError('Impossible de charger les statistiques');
