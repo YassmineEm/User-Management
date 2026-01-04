@@ -174,7 +174,7 @@ This project includes unit tests for both the frontend and backend, ensuring cod
 
 - **Frontend:** Vitest + React Testing Library
 - **Backend:** Jest + ts-jest
-- **Status:** All tests are currently passing ✅
+- **Status:** All tests are currently passing 
 - **Coverage:** Tests cover the main hooks, components, and services
 
 
@@ -189,5 +189,3 @@ npm test
 cd backend
 npm test
 
-
----
