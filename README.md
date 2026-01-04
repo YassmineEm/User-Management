@@ -168,4 +168,26 @@ This section explains how to start the backend and then the frontend for develop
    ```
    The application is accessible at `http://localhost:5173`.
 
+## Tests
+
+This project includes unit tests for both the frontend and backend, ensuring code reliability and stability.
+
+- **Frontend:** Vitest + React Testing Library
+- **Backend:** Jest + ts-jest
+- **Status:** All tests are currently passing ✅
+- **Coverage:** Tests cover the main hooks, components, and services
+
+
+### How to run tests
+
+```bash
+# Frontend tests
+cd frontend
+npm test
+
+# Backend tests
+cd backend
+npm test
+
+
 ---
