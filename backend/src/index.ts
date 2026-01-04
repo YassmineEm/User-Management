@@ -64,7 +64,7 @@ async function startServer(): Promise<void> {
     const userRoutes = initializeUserRoutes(userService);
     app.use('/api', userRoutes);
 
-    app.get('/health', (req: Request, res: Response) => {
+    app.get('/health', (_req: Request, res: Response) => {
       res.json({
         status: 'OK',
         service: 'user-list-backend',
@@ -80,7 +80,7 @@ async function startServer(): Promise<void> {
     });
 
  
-    app.get('/', (req: Request, res: Response) => {
+    app.get('/', (_req: Request, res: Response) => {
       res.json({
         message: 'Backend API - Liste massive d\'utilisateurs',
         version: '1.0.0',
@@ -106,7 +106,7 @@ async function startServer(): Promise<void> {
     });
 
 
-    app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
       console.error('Erreur non gérée:', err);
 
       res.status(500).json({
